@@ -20,14 +20,23 @@ namespace MarketManagementSystem.forms
         {
 
             try
-            {
-                MarketManagementSystem.Product product = new MarketManagementSystem.Product();
-                product.AddProduct(txtProductName.Text, float.Parse(txtProductPurchasingPrice.Text), float.Parse(txtProductSellingPrice.Text),txtProductStock.Text);
-                gvProduct.DataBind();
-                txtProductName.Text = "";
-                txtProductPurchasingPrice.Text = "";
-                txtProductSellingPrice.Text = "";
-                txtProductStock.Text = "";
+            {   
+                
+                if(txtProductName.Text.Length>0 && txtProductPurchasingPrice.Text.Length > 0 && txtProductSellingPrice.Text.Length > 0 && txtProductStock.Text.Length > 0)
+                {
+                    MarketManagementSystem.Product product = new MarketManagementSystem.Product();
+                    product.AddProduct(txtProductName.Text, float.Parse(txtProductPurchasingPrice.Text), float.Parse(txtProductSellingPrice.Text), txtProductStock.Text);
+                    gvProduct.DataBind();
+                    txtProductName.Text = "";
+                    txtProductPurchasingPrice.Text = "";
+                    txtProductSellingPrice.Text = "";
+                    txtProductStock.Text = "";
+                }
+                else
+                {
+                    Response.Write("Fill required fields");
+                }
+                
                 
 
                 
