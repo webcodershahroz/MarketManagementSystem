@@ -48,7 +48,7 @@
             height: fit-content;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             gap: 20px;
             width: 100%;
             flex-wrap: wrap;
@@ -113,49 +113,76 @@
             <div class="styleFD">
                 <asp:Label Text="Contact:" runat="server" />
                 <div>
-                    <asp:TextBox CssClass="txtCustomerContact" ID="txtCustomerContact" runat="server" />
+                    <asp:TextBox CssClass="txtCustomerContact inputStyle" ID="txtCustomerContact" runat="server" />
+                </div>
+            </div>
+            <div class="styleFD">
+                <asp:Label Text="Previous Balance:" runat="server" />
+                <div>
+                    <asp:TextBox CssClass="txtPreviousBalance inputStyle" ID="txtPreviousBalance" runat="server" />
                 </div>
             </div>
             <div>
-                <asp:Button CssClass="btn" BackColor="Green" Text="Add" runat="server" />
+                <asp:Button CssClass="btn" ID="btnAdd" BackColor="Green" Text="Add" runat="server" OnClick="btnAdd_Click" />
+            </div>
+        </div>
+        <div class="detailBar">
+            <div>
+                <asp:Label Text="Search Customer:" runat="server" />
+                <asp:TextBox ID="txtSearch" CssClass="inputStyle" runat="server" />
+                <asp:Button Text="Search" CssClass="btn" ID="btnSearch" runat="server" />
             </div>
         </div>
         <div>
-            <table class="tblCustomer">
-                <tr>
-                    <th>#</th>
-                    <th>Customer id</th>
-                    <th>Customer name</th>
-                    <th>Customer email</th>
-                    <th>Customer address</th>
-                    <th>Customer contact</th>
-                    <th>Previous Balance</th>
-                    <th>Action</th>
 
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>293810</td>
-                    <td>
-                        <asp:TextBox Text="Shahroz" ID="txtUpdateCustomerName" runat="server" />
-                    </td>
-                    <td>
-                        <asp:TextBox Text="shahrozshahzad17@gmail.com" ID="txtUpdateCustomerEmail" runat="server" />
-                    </td>
-                    <td>
-                        <asp:TextBox Text="ChakAkka, Dina" ID="txtUpdateCustomerAddress" runat="server" />
-                    </td>
-                    <td>
-                        <asp:TextBox Text="+92 3495898836" ID="txtUpdateCustomerContact" runat="server" /></td>
-                    <td>
-                        <asp:TextBox Text="200" ID="txtPreviousBalance" runat="server" /></td>
-                    <td>
-                        <asp:Button Text="Update" CssClass="btn" ID="btnUpdate" runat="server" />
-                        <asp:Button BackColor="Red" Text="Delete" CssClass="btn" ID="btnDelete" runat="server" />
-                    </td>
-                </tr>
+            <asp:GridView ID="gvCustomer" CssClass="tblCustomer" runat="server" AutoGenerateColumns="False" DataKeyNames="customer_id" DataSourceID="sdsCustomer" CellPadding="4" ForeColor="#333333" GridLines="None">
+                <AlternatingRowStyle BackColor="White" />
+                <Columns>
+                    <asp:TemplateField HeaderText="Sr #">
+                        <ItemTemplate><%#Container.DataItemIndex + 1 %></ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField DataField="customer_id" HeaderText="Customer id" InsertVisible="False" ReadOnly="True" SortExpression="customer_id" />
+                    <asp:BoundField DataField="customer_email" HeaderText="Customer name" SortExpression="customer_email" />
+                    <asp:BoundField DataField="customer_name" HeaderText="Customer name" SortExpression="customer_name" />
+                    <asp:BoundField DataField="customer_address" HeaderText="Customer Address" SortExpression="customer_address" />
+                    <asp:BoundField DataField="customer_contact" HeaderText="Customer Contact" SortExpression="customer_contact" />
+                    <asp:BoundField DataField="customer_previousBalance" HeaderText="Previous Balance" SortExpression="customer_previousBalance" />
+                    <asp:CommandField ButtonType="Button" HeaderText="Actions" ShowDeleteButton="True" ShowEditButton="True">
+                        <ControlStyle CssClass="btn" />
+                    </asp:CommandField>
+                </Columns>
+                <EditRowStyle BackColor="#8eaddd" />
+                <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                <RowStyle BackColor="#EFF3FB" />
+                <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                <SortedDescendingHeaderStyle BackColor="#4870BE" />
+            </asp:GridView>
+            <asp:SqlDataSource ID="sdsCustomer" runat="server" ConnectionString="<%$ ConnectionStrings:MarketManagementSystemConnectionString %>" ProviderName="<%$ ConnectionStrings:MarketManagementSystemConnectionString.ProviderName %>"
+                SelectCommand="SELECT * FROM [tblCustomer]"
+                UpdateCommand="update [tblCustomer] set [customer_email] = @customer_email,[customer_name] = @customer_name,[customer_address] = @customer_address,[customer_contact] = @customer_contact,[customer_previousBalance] = @customer_previousBalance where [customer_id] = @customer_id"
+                DeleteCommand="delete from [tblCustomer] where [customer_id] = @customer_id"
+                FilterExpression="[customer_name] like '{0}%'">
+                <UpdateParameters>
+                    <asp:Parameter Name="customer_id" />
+                    <asp:Parameter Name="customer_email" />
+                    <asp:Parameter Name="customer_name" />
+                    <asp:Parameter Name="customer_address" />
+                    <asp:Parameter Name="customer_contact" />
+                    <asp:Parameter Name="customer_previousBalance"/>
+                </UpdateParameters>
+                <DeleteParameters>
+                    <asp:Parameter Name="customer_id" />
+                </DeleteParameters>
+                <FilterParameters>
+                    <asp:ControlParameter ControlID="txtSearch" Name="ByName" PropertyName="Text"/>
+                </FilterParameters>
+            </asp:SqlDataSource>
 
-            </table>
         </div>
     </form>
 </body>
