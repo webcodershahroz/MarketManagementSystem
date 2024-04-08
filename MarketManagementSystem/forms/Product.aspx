@@ -32,10 +32,6 @@
                 height: 35px
             }
 
-                .tblProduct tr td input {
-                    width: 60px
-                }
-
         .btn {
             background-color: black;
             color: white;

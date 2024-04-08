@@ -9,6 +9,12 @@ namespace MarketManagementSystem.forms
 {
     public partial class OrderDetails : System.Web.UI.Page
     {
+        public int OrderDetailId { get; set; }
+        public int OrderId { get; set; }
+        public int ProductId { get; set; }
+        public float Quantity { get; set; }
+        public float TotalPrice { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
 

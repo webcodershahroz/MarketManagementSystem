@@ -24,22 +24,22 @@ namespace MarketManagementSystem.forms
         protected global::System.Web.UI.HtmlControls.HtmlForm formOrders;
 
         /// <summary>
-        /// btnSeeDetails control.
+        /// gvOrders control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSeeDetails;
+        protected global::System.Web.UI.WebControls.GridView gvOrders;
 
         /// <summary>
-        /// btnDelete control.
+        /// sdsOrders control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDelete;
+        protected global::System.Web.UI.WebControls.SqlDataSource sdsOrders;
 
         /// <summary>
         /// lblTotalNoOfOrders control.

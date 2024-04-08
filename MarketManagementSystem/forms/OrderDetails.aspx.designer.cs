@@ -24,6 +24,24 @@ namespace MarketManagementSystem.forms
         protected global::System.Web.UI.HtmlControls.HtmlForm formOrderDetails;
 
         /// <summary>
+        /// gvOrderDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvOrderDetails;
+
+        /// <summary>
+        /// sdsOrderDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource sdsOrderDetails;
+
+        /// <summary>
         /// lblTotalNoOfProductsSell control.
         /// </summary>
         /// <remarks>
