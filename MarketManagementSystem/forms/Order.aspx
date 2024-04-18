@@ -105,7 +105,6 @@
                             <asp:HyperLink ID="hlOrderId" NavigateUrl='<%# Eval("order_id","/forms/OrderDetails.aspx?orderId={0}") %>' runat="server" Text="See Details">
                             </asp:HyperLink>
                         </ItemTemplate>
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                     </asp:TemplateField>
                 </Columns>
                 <EditRowStyle BackColor="#2461BF" />

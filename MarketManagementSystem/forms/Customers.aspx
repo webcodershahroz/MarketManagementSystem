@@ -123,35 +123,26 @@
                 </div>
             </div>
             <div>
-                <asp:Button CssClass="btn" ID="btnAdd" BackColor="Green" Text="Add" runat="server" OnClick="btnAdd_Click" />
+                <asp:Button CssClass="btn" ID="btnAdd" BackColor="Green" Text="Add" runat="server" OnClick="BtnAdd_Click" />
+                <asp:Button CssClass="btn" ID="btnUpdate" Text="Update" runat="server" Visible="False" OnClick="BtnUpdate_Click" />
+                <asp:Button CssClass="btn" ID="btnDelete" BackColor="Red" Text="Delete" runat="server" Visible="False" OnClick="BtnDelete_Click"/>
+                <asp:Button CssClass="btn" ID="btnClear" BackColor="Yellow" Text="Clear" runat="server" ForeColor="Black" OnClick="BtnClear_Click"/>
             </div>
         </div>
         <div class="detailBar">
             <div>
                 <asp:Label Text="Search Customer:" runat="server" />
-                <asp:TextBox ID="txtSearch" CssClass="inputStyle" runat="server" />
-                <asp:Button Text="Search" CssClass="btn" ID="btnSearch" runat="server" />
+                <asp:TextBox ID="txtSearch" CssClass="inputStyle" runat="server" TextChanged="BtnSearch_Click" />
+                <asp:Button Text="Search" CssClass="btn" ID="btnSearch" runat="server" OnClick="BtnSearch_Click" />
             </div>
         </div>
         <div>
-
-            <asp:GridView ID="gvCustomer" CssClass="tblCustomer" runat="server" AutoGenerateColumns="False" DataKeyNames="customer_id" DataSourceID="sdsCustomer" CellPadding="4" ForeColor="#333333" GridLines="None">
+            <asp:GridView CssClass="tblCustomer" ID="gvCustomer" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="gvCustomer_SelectedIndexChanged">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
-                    <asp:TemplateField HeaderText="Sr #">
-                        <ItemTemplate><%#Container.DataItemIndex + 1 %></ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="customer_id" HeaderText="Customer id" InsertVisible="False" ReadOnly="True" SortExpression="customer_id" />
-                    <asp:BoundField DataField="customer_email" HeaderText="Customer name" SortExpression="customer_email" />
-                    <asp:BoundField DataField="customer_name" HeaderText="Customer name" SortExpression="customer_name" />
-                    <asp:BoundField DataField="customer_address" HeaderText="Customer Address" SortExpression="customer_address" />
-                    <asp:BoundField DataField="customer_contact" HeaderText="Customer Contact" SortExpression="customer_contact" />
-                    <asp:BoundField DataField="customer_previousBalance" HeaderText="Previous Balance" SortExpression="customer_previousBalance" />
-                    <asp:CommandField ButtonType="Button" HeaderText="Actions" ShowDeleteButton="True" ShowEditButton="True">
-                        <ControlStyle CssClass="btn" />
-                    </asp:CommandField>
+                    <asp:CommandField ShowSelectButton="True" />
                 </Columns>
-                <EditRowStyle BackColor="#8eaddd" />
+                <EditRowStyle BackColor="#2461BF" />
                 <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                 <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                 <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
@@ -161,28 +152,8 @@
                 <SortedAscendingHeaderStyle BackColor="#6D95E1" />
                 <SortedDescendingCellStyle BackColor="#E9EBEF" />
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                <SelectedRowStyle BackColor="#769ade" />
             </asp:GridView>
-            <asp:SqlDataSource ID="sdsCustomer" runat="server" ConnectionString="<%$ ConnectionStrings:MarketManagementSystemConnectionString %>" ProviderName="<%$ ConnectionStrings:MarketManagementSystemConnectionString.ProviderName %>"
-                SelectCommand="SELECT * FROM [tblCustomer]"
-                UpdateCommand="update [tblCustomer] set [customer_email] = @customer_email,[customer_name] = @customer_name,[customer_address] = @customer_address,[customer_contact] = @customer_contact,[customer_previousBalance] = @customer_previousBalance where [customer_id] = @customer_id"
-                DeleteCommand="delete from [tblCustomer] where [customer_id] = @customer_id"
-                FilterExpression="[customer_name] like '{0}%'">
-                <UpdateParameters>
-                    <asp:Parameter Name="customer_id" />
-                    <asp:Parameter Name="customer_email" />
-                    <asp:Parameter Name="customer_name" />
-                    <asp:Parameter Name="customer_address" />
-                    <asp:Parameter Name="customer_contact" />
-                    <asp:Parameter Name="customer_previousBalance"/>
-                </UpdateParameters>
-                <DeleteParameters>
-                    <asp:Parameter Name="customer_id" />
-                </DeleteParameters>
-                <FilterParameters>
-                    <asp:ControlParameter ControlID="txtSearch" Name="ByName" PropertyName="Text"/>
-                </FilterParameters>
-            </asp:SqlDataSource>
-
         </div>
     </form>
 </body>
