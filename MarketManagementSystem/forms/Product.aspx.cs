@@ -13,10 +13,22 @@ namespace MarketManagementSystem.forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            try
+            {
+                classes.Product prodcut = new classes.Product();
+                SqlDataReader data = prodcut.ReadProduct();
+                gvProduct.DataSource = data;
+                gvProduct.DataBind();
+
+                
+            }
+            catch
+            {
+                Response.Write("Error Reading Data");
+            }
         }
 
-        protected void btnAddProduct_Click(object sender, EventArgs e)
+        protected void BtnAddProduct_Click(object sender, EventArgs e)
         {
 
             try
@@ -24,9 +36,10 @@ namespace MarketManagementSystem.forms
                 
                 if(txtProductName.Text.Length>0 && txtProductPurchasingPrice.Text.Length > 0 && txtProductSellingPrice.Text.Length > 0 && txtProductStock.Text.Length > 0)
                 {
-                    MarketManagementSystem.Product product = new MarketManagementSystem.Product();
-                    product.AddProduct(txtProductName.Text, float.Parse(txtProductPurchasingPrice.Text), float.Parse(txtProductSellingPrice.Text), txtProductStock.Text);
-                    gvProduct.DataBind();
+                    classes.Product product = new classes.Product();
+                    product.AddProduct(txtProductName.Text, float.Parse(txtProductPurchasingPrice.Text), float.Parse(txtProductSellingPrice.Text), float.Parse(txtProductStock.Text));
+                    Response.Redirect(Request.RawUrl);
+
                     txtProductName.Text = "";
                     txtProductPurchasingPrice.Text = "";
                     txtProductSellingPrice.Text = "";
@@ -43,6 +56,95 @@ namespace MarketManagementSystem.forms
             }
             catch(SqlException sqlError) {  }
         }
+        
+        protected void BtnUpdateProduct_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int productId = int.Parse(gvProduct.SelectedRow.Cells[1].Text);
 
+                classes.Product product = new classes.Product();
+                product.UpdateProduct(productId, txtProductName.Text, float.Parse(txtProductPurchasingPrice.Text), float.Parse(txtProductSellingPrice.Text), float.Parse(txtProductStock.Text));
+                Response.Redirect(Request.RawUrl);
+            }
+            catch(Exception error) { Response.Write("Error Occur: " + error.Message); }
+        }
+        protected void BtnDeleteProduct_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int productId = int.Parse(gvProduct.SelectedRow.Cells[1].Text);
+
+                classes.Product product = new classes.Product();
+                product.DeleteProduct(productId);
+                Response.Redirect(Request.RawUrl);
+            }
+            catch (Exception error) { Response.Write("Error Occur: " + error.Message); }
+        }
+        protected void BtnClearFields_Click(object sender, EventArgs e)
+        {
+            btnAddProduct.Visible = true;
+
+            txtProductName.Text = "";
+            txtProductPurchasingPrice.Text = "";
+            txtProductSellingPrice.Text = "";
+            txtProductStock.Text = "";
+
+        }
+
+        protected void gvProduct_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnAddProduct.Visible = false;
+            btnUpdateProduct.Visible = true;
+            btnDeleteProduct.Visible = true;
+
+            txtProductName.Text = gvProduct.SelectedRow.Cells[2].Text;
+            txtProductPurchasingPrice.Text = gvProduct.SelectedRow.Cells[3].Text;
+            txtProductSellingPrice.Text = gvProduct.SelectedRow.Cells[4].Text;
+            txtProductStock.Text = gvProduct.SelectedRow.Cells[5].Text;
+
+
+        }
+
+        protected void BtnSearch_Click(object sender, EventArgs e)
+        {
+            string searchquery = txtSearch.Text;
+            if (searchquery.Length > 0)
+            {
+                try
+                {
+                    classes.Product product = new classes.Product();
+                    SqlDataReader data = product.SearchProduct(searchquery);
+                    gvProduct.DataSource = data;
+                    gvProduct.DataBind();
+                    if (!data.HasRows)
+                    {
+                        Response.Write("No records found");
+                    }
+                }
+                catch
+                {
+                    Response.Write("Error Occurs, Try Again");
+                }
+            }
+        }
+
+        protected void CbFilterProduct_CheckedChanged(object sender, EventArgs e)
+        {
+
+            classes.Product product = new classes.Product();
+            if(cbFilterProduct.Checked)
+            {
+                SqlDataReader data = product.GetOutOfStock();
+                gvProduct.DataSource = data;
+                gvProduct.DataBind();
+            }
+            else if(!cbFilterProduct.Checked)
+            {
+                SqlDataReader data = product.ReadProduct();
+                gvProduct.DataSource = data;
+                gvProduct.DataBind();
+            }
+        }
     }
 }

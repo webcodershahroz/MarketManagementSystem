@@ -5,85 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Dashboard : Market Management System</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing:border-box;
-            font-family: Calibri;
-        }
-
-        nav {
-            background-color: lightblue;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            position: fixed;
-            top: 0px;
-            width: 100%;
-            height: fit-content;
-        }
-
-        .tblProduct {
-            width: 99%;
-            margin: 105px auto;
-        }
-
-            .tblProduct tr td {
-                border: 1px solid black;
-                text-align: center;
-                height: 35px
-            }
-
-                .tblProduct tr td input {
-                    width: 60px
-                }
-
-        .detailBar {
-            padding: 10px;
-            background-color: #eeeeee;
-            height: fit-content;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            position: fixed;
-            top: 49px;
-            width: 100%;
-            flex-wrap: wrap;
-        }
-
-        .inputStyle {
-            height: 30px;
-            width: 200px;
-            outline: none;
-            padding: 0 8px;
-            font-size: 17px;
-        }
-
-        .btn {
-            background-color: red;
-            color: white;
-            padding: 2px 10px;
-            border-radius: 4px;
-            border: none;
-            height: 29px;
-        }
-
-        .totalBar {
-            width: 100%;
-            position: fixed;
-            bottom: 0px;
-            background-color: lightblue;
-            height: 45px;
-            font-size: 30px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            gap: 10px;
-        }
-    </style>
+    <link href="../style/style.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -92,73 +14,96 @@
             <h1>Ashyana Karyana</h1>
         </nav>
     </header>
-
     <form id="formBill" runat="server">
-        <div class="detailBar">
-            <div>
-                <asp:Label Text="Search Product:" runat="server" />
-                <asp:TextBox CssClass="txtSearch inputStyle" ID="txtSearch" runat="server"  />
-            </div>
-            <div>
-                <asp:Label Text="Quantity:" runat="server" />
-                <input class="txtQuantity inputStyle" style="width: 100px" id="txtQuantity" type="number" value="1" />
-            </div>
-            <div>
-                <asp:Button CssClass="btn" ID="btnAddProduct" Text="Add" BackColor="Green" runat="server" />
-            </div>
-            <div>
-                <asp:Label Text="Customer Name:" runat="server" />
-                <asp:TextBox CssClass="txtCustomerName inputStyle" ID="txtCustomerName" runat="server" />
-            </div>
-            <div>
-                <asp:Button CssClass="btn" ID="btnClearDashboard" Text="Clear Dashboard" runat="server" />
-            </div>
-            <div>
-                <asp:Button CssClass="btn" BackColor="Black" ID="btnPrint" Text="Print" runat="server" />
-            </div>
-        </div>
         <div>
-            <table class="tblProduct">
-                <tr>
-                    <th>#</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Product Price</th>
-                    <th>Total</th>
-                    <th>Action</th>
-
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Rice</td>
-                    <td>2</td>
-                    <td>300</td>
-                    <td>600</td>
-                    <td>
-                        <asp:Button Text="Delete" CssClass="btn" ID="btnDelete" runat="server" /></td>
-                </tr>
-            </table>
+            <div class="detailBar">
+                <asp:Panel CssClass="detailBar" runat="server" ID="pnlAddPdtControls" Visible="false">
+                    <asp:Panel runat="server" ID="pnlEdit" Visible="false" style="display:flex">
+                        <div>
+                            <asp:Button CssClass="btn" ID="btnEditProduct" Text="Edit" BackColor="Green" runat="server" OnClick="BtnEditProduct_Click" />
+                        </div>
+                        <div>
+                            <asp:Button CssClass="btn" ID="btnDeleteProduct" Text="Delete" BackColor="Red" runat="server" OnClick="BtnDeleteProduct_Click"  />
+                        </div>
+                    </asp:Panel>
+                    <div>
+                        <asp:TextBox ID="txtOrderId" runat="server" Enabled="false" BackColor="#c6c6b4" Width="30px" />
+                    </div>
+                    <div>
+                        <asp:Label Text="Search Product:" runat="server" />
+                        <asp:DropDownList runat="server" ID="ddlProduct" CssClass="inputStyle" AutoPostBack="true" OnSelectedIndexChanged="DdlProduct_SelectedIndexChanged">
+                        </asp:DropDownList>
+                    </div>
+                    <div>
+                        <asp:Label Text="Quantity:" runat="server" />
+                        <asp:TextBox CssClass="inputStyle" Width="100" ID="txtQuantity" Text="1" TextMode="Number" runat="server" />
+                    </div>
+                    <div>
+                        <asp:Label Text="Price:" runat="server" />
+                        <asp:TextBox CssClass="inputStyle" Width="100" ID="txtPrice" runat="server" />
+                    </div>
+                    <div>
+                        <asp:Button CssClass="btn" ID="btnAddProduct" Text="Add" BackColor="Green" runat="server" OnClick="BtnAddProduct_Click" />
+                    </div>
+                    <div>
+                        <asp:Button CssClass="btn" BackColor="Black" ID="btnPrint" Text="Print" runat="server" OnClick="BtnPrint_Click" />
+                    </div>
+                    <div>
+                        <asp:Button CssClass="btn" ID="btnEditCustomer" Text="Change Customer" runat="server" OnClick="BtnEditCustomer_Click" />
+                    </div>
+                    <div>
+                        <asp:Button CssClass="btn" BackColor="Red" ID="btnCancelOrder" Text="Cancel Order" runat="server" OnClick="BtnCancelOrder_Click" />
+                    </div>
+                </asp:Panel>
+                <asp:Panel runat="server" CssClass="detailBar" ID="pnlAddCtrControls">
+                    <div>
+                        <asp:Label Text="Customer Name:" runat="server" />
+                        <asp:DropDownList runat="server" ID="ddlCustomer" CssClass="inputStyle" AutoPostBack="true" OnSelectedIndexChanged="DdlCustomer_SelectedIndexChanged">
+                        </asp:DropDownList>
+                    </div>
+                    <div>
+                        <asp:TextBox runat="server" ID="txtDate" CssClass="inputStyle" TextMode="DateTime" Enabled="false" />
+                    </div>
+                    <div>
+                        <asp:Button CssClass="btn" ID="btnCreateOrder" Text="Create Order" runat="server" OnClick="BtnCreateOrder_Click" />
+                    </div>
+                </asp:Panel>
+            </div>
         </div>
         <div class="totalBar">
             <div>
                 <asp:Label Text="No of Items:" runat="server" />
-                <asp:Label ID="lblTotalNoOfItems" Text="1" runat="server" />
+                <asp:Label ID="lblTotalNoOfItems" Text="0" runat="server" />
             </div>
-            <div>
+            <div style="display: flex; align-items: center;">
+                <asp:CheckBox Font-Size="Medium" Text="Add Previous Balance(if any)" ID="cbAddPreviousBalance" runat="server" OnCheckedChanged="CbAddPreviousBalance_CheckedChanged" AutoPostBack="true" />
+            </div>
+            <div style="display: flex; align-items: center; gap: 5px">
                 <asp:Label Text="Total:" runat="server" />
-                <asp:Label ID="lblTotalPrice" Text="600" runat="server" />
+                <asp:TextBox ID="txtTotalPrice" CssClass="inputStyle" Text="0" Enabled="false" runat="server" />
+            </div>
+            <div style="display: flex; align-items: center; gap: 5px">
+                <asp:Label Text="Recived Amount" runat="server" />
+                <asp:TextBox ID="txtRecivedAmount" TextMode="Number"
+                    CssClass="inputStyle" runat="server" />
             </div>
         </div>
-
+        <asp:GridView ID="gvBillDetail" CssClass="tbl" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GvBillDetail_SelectedIndexChanged">
+            <AlternatingRowStyle BackColor="White" />
+            <Columns>
+                <asp:CommandField ShowSelectButton="True" />
+            </Columns>
+            <EditRowStyle BackColor="#2461BF" />
+            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+            <RowStyle BackColor="#EFF3FB" />
+            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+            <SortedAscendingCellStyle BackColor="#F5F7FB" />
+            <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+            <SortedDescendingCellStyle BackColor="#E9EBEF" />
+            <SortedDescendingHeaderStyle BackColor="#4870BE" />
+        </asp:GridView>
     </form>
-    <script>
-        console.log("Welcome to Market Management System");
-        //Search box item show or hide
-        document.getElementById('txtSearch').addEventListener('change', () => {
-            
-        })
-
-
-    </script>
 </body>
 </html>

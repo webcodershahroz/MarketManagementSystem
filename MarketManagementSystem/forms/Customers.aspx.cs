@@ -115,7 +115,7 @@ namespace MarketManagementSystem.forms
                     SqlDataReader data = customer.SearchCustomer(searchquery);
                     gvCustomer.DataSource = data;
                     gvCustomer.DataBind();
-                    if(!data.Read())
+                    if(!data.HasRows)
                     {
                         Response.Write("No records found");
                     }

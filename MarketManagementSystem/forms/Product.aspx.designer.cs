@@ -69,6 +69,33 @@ namespace MarketManagementSystem.forms
         protected global::System.Web.UI.WebControls.Button btnAddProduct;
 
         /// <summary>
+        /// btnDeleteProduct control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDeleteProduct;
+
+        /// <summary>
+        /// btnUpdateProduct control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdateProduct;
+
+        /// <summary>
+        /// btnClearProduct control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnClearProduct;
+
+        /// <summary>
         /// txtSearch control.
         /// </summary>
         /// <remarks>
@@ -87,6 +114,15 @@ namespace MarketManagementSystem.forms
         protected global::System.Web.UI.WebControls.Button btnSearch;
 
         /// <summary>
+        /// cbFilterProduct control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbFilterProduct;
+
+        /// <summary>
         /// gvProduct control.
         /// </summary>
         /// <remarks>
@@ -94,14 +130,5 @@ namespace MarketManagementSystem.forms
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvProduct;
-
-        /// <summary>
-        /// sdsProduct control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource sdsProduct;
     }
 }

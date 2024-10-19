@@ -5,83 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Customers : Market Management System</title>
-    <style>
-        * {
-            margin: 0px;
-            padding: 0px;
-            box-sizing: border-box;
-            font-family: Calibri;
-        }
-
-        nav {
-            background-color: lightblue;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .tblCustomer {
-            width: 95%;
-            margin: 10px auto;
-        }
-
-            .tblCustomer tr td {
-                border: 1px solid black;
-                text-align: center;
-                height: 35px
-            }
-
-        .btn {
-            background-color: black;
-            color: white;
-            padding: 2px 10px;
-            border-radius: 4px;
-            border: none;
-            height: 29px;
-            width: fit-content
-        }
-
-        .detailBar, .addCustomerFormContainer {
-            padding: 10px;
-            background-color: #eeeeee;
-            height: fit-content;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            width: 100%;
-            flex-wrap: wrap;
-        }
-
-        .inputStyle {
-            height: 30px;
-            width: 200px;
-            outline: none;
-            padding: 0 8px;
-            font-size: 17px;
-        }
-
-        .totalBar {
-            width: 100%;
-            position: fixed;
-            bottom: 0px;
-            background-color: lightblue;
-            height: 45px;
-            font-size: 30px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            gap: 10px;
-        }
-
-        .styleFD {
-            display: flex;
-            align-items: center;
-            gap: 5px
-        }
-    </style>
+    <link href="../style/style.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -91,32 +15,32 @@
         </nav>
     </header>
     <form id="formCustomers" runat="server">
-        <div class="addCustomerFormContainer" style="background-color: #ebf9ff;">
-            <div class="styleFD">
+        <div class="detailBar" style="background-color: #ebf9ff;">
+            <div >
                 <asp:Label Text="Customer name:" runat="server" />
                 <div>
                     <asp:TextBox CssClass="txtCustomerName inputStyle" ID="txtCustomerName" runat="server" />
                 </div>
             </div>
-            <div class="styleFD">
+            <div>
                 <asp:Label Text="Email:" runat="server" />
                 <div>
                     <asp:TextBox CssClass="txtCustomerEmail inputStyle" ID="txtCustomerEmail" runat="server" />
                 </div>
             </div>
-            <div class="styleFD">
+            <div>
                 <asp:Label Text="Address:" runat="server" />
                 <div>
                     <asp:TextBox CssClass="txtCustomerAddress inputStyle" ID="txtCustomerAddress" runat="server" />
                 </div>
             </div>
-            <div class="styleFD">
+            <div>
                 <asp:Label Text="Contact:" runat="server" />
                 <div>
                     <asp:TextBox CssClass="txtCustomerContact inputStyle" ID="txtCustomerContact" runat="server" />
                 </div>
             </div>
-            <div class="styleFD">
+            <div>
                 <asp:Label Text="Previous Balance:" runat="server" />
                 <div>
                     <asp:TextBox CssClass="txtPreviousBalance inputStyle" ID="txtPreviousBalance" runat="server" />
@@ -137,7 +61,7 @@
             </div>
         </div>
         <div>
-            <asp:GridView CssClass="tblCustomer" ID="gvCustomer" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="gvCustomer_SelectedIndexChanged">
+            <asp:GridView CssClass="tbl" ID="gvCustomer" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="gvCustomer_SelectedIndexChanged">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:CommandField ShowSelectButton="True" />

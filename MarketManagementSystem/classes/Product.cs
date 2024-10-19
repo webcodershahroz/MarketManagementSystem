@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
-namespace MarketManagementSystem
+namespace MarketManagementSystem.classes
 {
     public class Product
     {
@@ -12,9 +12,9 @@ namespace MarketManagementSystem
         public String ProductName { get; set; }
         public float ProductPurchasingPrice { get; set; }
         public float ProductSellingPrice { get; set; }
-        public String ProductStock { get; set; } 
+        public float ProductStock { get; set; } 
         
-        public void AddProduct(string name, float ppp,float psp,string stock)
+        public void AddProduct(string name, float ppp,float psp,float stock)
         {
             ProductName = name;
             ProductPurchasingPrice = ppp;
@@ -34,14 +34,14 @@ namespace MarketManagementSystem
             ProductId = pdId;
 
             SqlConnection conn = new SqlConnection(@"Data Source=DESKTOP-CA89MHE\SQLEXPRESS;Initial Catalog=MarketManagementSystem;Integrated Security=True;Encrypt=False");
-            string query = $"delete from tblProduct where product_id = {ProductId}";
+            string query = $"delete from tblProduct where product_id = '{ProductId}'";
             conn.Open();
             SqlCommand cmd = new SqlCommand(query, conn);
 
             cmd.ExecuteNonQuery();
         }
 
-        public void UpdateProduct(int pdId, string name, float ppp, float psp, string stock)
+        public void UpdateProduct(int pdId, string name, float ppp, float psp, float stock)
         {
             ProductId = pdId;
             ProductName = name;
@@ -50,7 +50,7 @@ namespace MarketManagementSystem
             ProductStock = stock;
 
             SqlConnection conn = new SqlConnection(@"Data Source=DESKTOP-CA89MHE\SQLEXPRESS;Initial Catalog=MarketManagementSystem;Integrated Security=True;Encrypt=False");
-            string query = $"update tblProduct set values('{ProductName}','{ProductPurchasingPrice}','{ProductSellingPrice}','{ProductStock}') where product_id = {ProductId}";
+            string query = $"update tblProduct set product_name = '{ProductName}', product_purchasingPrice = '{ProductPurchasingPrice}', product_sellingPrice = '{ProductSellingPrice}', product_stock = '{ProductStock}' where product_id = '{ProductId}'";
             conn.Open();
             SqlCommand cmd = new SqlCommand(query, conn);
 
@@ -69,6 +69,32 @@ namespace MarketManagementSystem
 
             return data;
 
+
+        }
+        public SqlDataReader SearchProduct(string searchQuery)
+        {
+
+            SqlConnection conn = new SqlConnection(@"Data Source=DESKTOP-CA89MHE\SQLEXPRESS;Initial Catalog=MarketManagementSystem;Integrated Security=True;Encrypt=False");
+            string query = $"select * from tblProduct where product_name like '%{searchQuery}%'";
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(query, conn);
+
+            SqlDataReader data = cmd.ExecuteReader();
+
+            return data;
+
+        }
+        public SqlDataReader GetOutOfStock()
+        {
+
+            SqlConnection conn = new SqlConnection(@"Data Source=DESKTOP-CA89MHE\SQLEXPRESS;Initial Catalog=MarketManagementSystem;Integrated Security=True;Encrypt=False");
+            string query = $"select * from tblProduct where product_stock < 20";
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(query, conn);
+
+            SqlDataReader data = cmd.ExecuteReader();
+
+            return data;
 
         }
     }

@@ -5,80 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Orders : Market Management System</title>
-    <style>
-        * {
-            margin: 0px;
-            padding: 0px;
-            box-sizing: border-box;
-            font-family: Calibri;
-        }
-
-        nav {
-            background-color: lightblue;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .tblOrder {
-            width: 95%;
-            margin: 10px auto;
-        }
-
-            .tblOrder tr td {
-                border: 1px solid black;
-                text-align: center;
-                height: 35px
-            }
-
-        .btn {
-            background-color: black;
-            color: white;
-            padding: 2px 10px;
-            border-radius: 4px;
-            border: none;
-            height: 29px;
-            width: fit-content;
-            margin: 10px
-        }
-
-        .detailBar {
-            padding: 10px;
-            background-color: #eeeeee;
-            height: fit-content;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            position: fixed;
-            top: 49px;
-            width: 100%;
-            flex-wrap: wrap;
-        }
-
-        .inputStyle {
-            height: 30px;
-            width: 200px;
-            outline: none;
-            padding: 0 8px;
-            font-size: 17px;
-        }
-
-        .totalBar {
-            width: 100%;
-            position: fixed;
-            bottom: 0px;
-            background-color: lightblue;
-            height: 45px;
-            font-size: 30px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            gap: 10px;
-        }
-    </style>
+    <link href="../style/style.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -86,26 +13,41 @@
             <h1>Welcome to the Market Management System</h1>
             <h1>Ashyana Karyana</h1>
         </nav>
-    </header>
-    <form id="formOrders" runat="server">
-        <div>
 
-            <asp:GridView CssClass="tblOrder" ID="gvOrders" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="order_id" DataSourceID="sdsOrders" ForeColor="#333333" GridLines="None">
+
+    </header>
+
+    <form id="formOrders" runat="server">
+        <div class="detailBar" style="background-color: #ebf9ff;">
+            <div style="display:flex; align-items:center; gap:4px">
+                <asp:Label Text="Search:" runat="server" />
+                <div>
+                    <asp:TextBox CssClass="inputStyle" Width="150"  ID="txtSearchOrder" runat="server" AutoPostBack="true" OnTextChanged="TxtSearchOrder_TextChanged"/>
+                </div>
+            </div>
+            <div>
+                <asp:Label Text="Search By Date" runat="server" />
+                <asp:TextBox runat="server" CssClass="inputStyle"  Width="150" TextMode="Date" ID="txtSearchDate" AutoPostBack="true" OnTextChanged="TxtSearchDate_TextChanged"  />
+            </div>
+            <div style="display:flex">
+                <div>
+                    <asp:Label Text="from: " runat="server" />
+                    <asp:TextBox runat="server" CssClass="inputStyle"  Width="150" TextMode="Date" ID="txtSearchFrom" AutoPostBack="true" OnTextChanged="TxtSearch_TextChanged"/>
+                </div>
+                <div>
+                    <asp:Label Text="to: " runat="server" />
+                    <asp:TextBox runat="server" CssClass="inputStyle" Width="150" TextMode="Date" ID="txtSearchTo"  AutoPostBack="true" OnTextChanged="TxtSearch_TextChanged"/>
+                </div>
+            </div>
+            <div>
+                <asp:Button Text="Clear Filter" CssClass="btn" ID="btnClearFilter" OnClick="BtnClearFilter_Click" runat="server" />
+            </div>
+        </div>
+        <div>
+            <asp:GridView ID="gvOrder" CssClass="tbl" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GvOrder_SelectedIndexChanged">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
-                    <asp:TemplateField HeaderText="Sr #">
-                        <ItemTemplate><%#Container.DataItemIndex + 1 %></ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="order_id" HeaderText="Order Id" InsertVisible="False" ReadOnly="True" SortExpression="order_id"></asp:BoundField>
-                    <asp:BoundField DataField="customer_id" HeaderText="Customer Id" SortExpression="customer_id"></asp:BoundField>
-                    <asp:BoundField DataField="order_date" HeaderText="Date" SortExpression="order_date"></asp:BoundField>
-                    <asp:BoundField DataField="order_totalPrice" HeaderText="Total Bill" SortExpression="order_totalPrice"></asp:BoundField>
-                    <asp:TemplateField HeaderText="Actions">
-                        <ItemTemplate>
-                            <asp:HyperLink ID="hlOrderId" NavigateUrl='<%# Eval("order_id","/forms/OrderDetails.aspx?orderId={0}") %>' runat="server" Text="See Details">
-                            </asp:HyperLink>
-                        </ItemTemplate>
-                    </asp:TemplateField>
+                    <asp:CommandField ShowSelectButton="True" SelectText="See Details" />
                 </Columns>
                 <EditRowStyle BackColor="#2461BF" />
                 <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -118,18 +60,12 @@
                 <SortedDescendingCellStyle BackColor="#E9EBEF" />
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
             </asp:GridView>
-            <asp:SqlDataSource ID="sdsOrders" runat="server" ConnectionString="<%$ ConnectionStrings:MarketManagementSystemConnectionString %>" ProviderName="<%$ ConnectionStrings:MarketManagementSystemConnectionString.ProviderName %>" SelectCommand="SELECT * FROM [tblOrder]"></asp:SqlDataSource>
-
         </div>
     </form>
     <div class="totalBar">
         <div>
             <asp:Label Text="No of Orders:" runat="server" />
             <asp:Label ID="lblTotalNoOfOrders" Text="1" runat="server" />
-        </div>
-        <div>
-            <asp:Label Text="Total Sellings:" runat="server" />
-            <asp:Label ID="lblTotalSellings" Text="20000" runat="server" />
         </div>
     </div>
 </body>

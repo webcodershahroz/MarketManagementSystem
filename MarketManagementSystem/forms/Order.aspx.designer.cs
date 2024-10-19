@@ -24,22 +24,58 @@ namespace MarketManagementSystem.forms
         protected global::System.Web.UI.HtmlControls.HtmlForm formOrders;
 
         /// <summary>
-        /// gvOrders control.
+        /// txtSearchOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvOrders;
+        protected global::System.Web.UI.WebControls.TextBox txtSearchOrder;
 
         /// <summary>
-        /// sdsOrders control.
+        /// txtSearchDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource sdsOrders;
+        protected global::System.Web.UI.WebControls.TextBox txtSearchDate;
+
+        /// <summary>
+        /// txtSearchFrom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSearchFrom;
+
+        /// <summary>
+        /// txtSearchTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSearchTo;
+
+        /// <summary>
+        /// btnClearFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnClearFilter;
+
+        /// <summary>
+        /// gvOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvOrder;
 
         /// <summary>
         /// lblTotalNoOfOrders control.
@@ -49,14 +85,5 @@ namespace MarketManagementSystem.forms
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTotalNoOfOrders;
-
-        /// <summary>
-        /// lblTotalSellings control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalSellings;
     }
 }
